@@ -1,0 +1,37 @@
+.add-list {
+  position: relative;
+
+  &__popup {
+    position: absolute;
+    width: 240px;
+    height: 148px;
+    padding: 18px;
+
+    background: #ffffff;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+
+    .btn {
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    &-colors {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+
+      .badge {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+
+        border: 2px solid inherit;
+
+        &.active{
+          border: 2px solid #525252;
+        }
+      }
+    }
+  }
+}

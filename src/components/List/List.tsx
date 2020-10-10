@@ -1,31 +1,36 @@
 import React from 'react'
+import classNames from 'classnames'
+import Badge from '../Badge'
 
-import './list.scss'
+import './List.scss'
 
 interface Item {
     icon?: string,
     label: string,
     color?: string,
-    active: boolean
+    active?: boolean,
+    className?: string
 }
 
 interface ItemList {
-    items: Item[]
+    items: Item[],
+    onClick?: () => void,
+    isRemoveble?: boolean
 }
 
-const List: React.FC<ItemList> = ({ items }) => {
+const List: React.FC<ItemList> = ({ items, onClick, isRemoveble }) => {
     return (
-        <ul className="list">
+        <ul onClick={onClick} className="list">
             {
-                items.map((item: Item, i) => (
-                    <li key={i} className={item.active ? 'active' : ''}>
+                items.map((item: Item, idx: number) => (
+                    <li key={idx} className={classNames(item.className, { 'active': item.active })}>
                         {
                             item.icon && <i>
                                 <img src={item.icon} alt="list icon" />
                             </i>
                         }
                         {
-                            item.color && <i className={`badge badge--${item.color}`}></i>
+                            item.color && <Badge color={item.color}/>
                         }
                         <span>
                             {item.label}

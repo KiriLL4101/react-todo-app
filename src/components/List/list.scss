@@ -1,5 +1,14 @@
 .list {
   margin-bottom: 35px;
+  font-size: 14px;
+
+  &__add-btn {
+    opacity: 0.4;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
   li {
     display: flex;
     align-items: center;
@@ -17,21 +26,6 @@
       margin-right: 10px;
       img {
         opacity: 0.6;
-      }
-
-      &.badge {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        &--green {
-          background: #42b883;
-        }
-        &--blue {
-          background: #64c4ed;
-        }
-        &--pink {
-          background: #ffbbcc;
-        }
       }
     }
   }
