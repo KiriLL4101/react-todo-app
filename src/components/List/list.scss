@@ -28,5 +28,17 @@
         opacity: 0.6;
       }
     }
+
+    &:hover{
+      .list__remove-btn{
+        display: inline-block;
+        opacity: 0.4;
+      }
+    }
+  }
+
+  &__remove-btn {
+    display: none;
+    margin-left: auto;
   }
 }

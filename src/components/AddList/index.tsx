@@ -2,6 +2,7 @@ import React from 'react'
 import List from '../List/List'
 
 import addSvg from '../../assets/img/add.svg'
+import closeSvg from '../../assets/img/close.svg'
 import './AddButtonList.scss'
 import Badge from '../Badge'
 
@@ -16,12 +17,13 @@ type AddListProps = {
 }
 
 const AddList: React.FC<AddListProps> = ({ colors }) => {
-    const [visiblePopup, setVisiblePopup] = React.useState(true)
+    const [visiblePopup, setVisiblePopup] = React.useState<boolean>(false)
+    const [selectdColor, setSelectdColor] = React.useState<number>(colors[0].id)
 
     return (
         <div className="add-list">
             <List
-                onClick={() => setVisiblePopup(!visiblePopup)}
+                onClick={() => setVisiblePopup(true)}
                 items={[
                     {
                         label: 'Добавить список',
@@ -31,17 +33,28 @@ const AddList: React.FC<AddListProps> = ({ colors }) => {
                 ]} />
             {
                 visiblePopup && <div className="add-list__popup">
+                    <img
+                        src={closeSvg}
+                        alt="close"
+                        className="add-list__popup-close-btn"
+                        onClick={() => setVisiblePopup(false)}
+                    />
                     <input type="text" placeholder="Название списка" className="field" />
                     <div className="add-list__popup-colors">
 
                         {
                             colors.map(color => (
-                                <Badge key={color.id} onClick={() => console.log(1)} color={color.name} />
+                                <Badge
+                                    key={color.id}
+                                    onClick={() => setSelectdColor(color.id)}
+                                    color={color.name}
+                                    className={selectdColor === color.id && 'active'}
+                                />
                             ))
                         }
 
                     </div>
-                    <button className="btn">Добавить</button>
+                    <button onClick={() => setVisiblePopup(false)} className="btn">Добавить</button>
                 </div>
             }
 

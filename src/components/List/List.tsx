@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import Badge from '../Badge'
 
 import './List.scss'
+import removeSvg from '../../assets/img/remove.svg'
 
 interface Item {
     icon?: string,
@@ -30,11 +31,14 @@ const List: React.FC<ItemList> = ({ items, onClick, isRemoveble }) => {
                             </i>
                         }
                         {
-                            item.color && <Badge color={item.color}/>
+                            item.color && <Badge color={item.color} />
                         }
                         <span>
                             {item.label}
                         </span>
+                        {
+                            isRemoveble && <img src={removeSvg} alt="remove btn" className="list__remove-btn"/>
+                        }
                     </li>
                 ))
             }

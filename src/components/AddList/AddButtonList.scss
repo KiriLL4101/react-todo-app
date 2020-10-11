@@ -10,10 +10,19 @@
     background: #ffffff;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
+    top: 35px;
+    right: -91px;
 
     .btn {
       width: 100%;
       margin-top: 12px;
+    }
+
+    &-close-btn {
+      cursor: pointer;
+      position: absolute;
+      top: -10px;
+      right: -10px;
     }
 
     &-colors {
@@ -28,7 +37,7 @@
 
         border: 2px solid inherit;
 
-        &.active{
+        &.active {
           border: 2px solid #525252;
         }
       }

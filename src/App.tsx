@@ -33,7 +33,8 @@ function App() {
             label: 'Книги',
             active: false
           }
-        ]} />
+        ]}
+          isRemoveble />
         <AddList colors={DB.colors} />
       </section>
       <main className="todo__tasks">
