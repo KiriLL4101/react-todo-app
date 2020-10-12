@@ -1,5 +1,6 @@
 import React from 'react'
-import List from '../List/List'
+import List from '../List'
+import { list } from '../../App'
 
 import addSvg from '../../assets/img/add.svg'
 import closeSvg from '../../assets/img/close.svg'
@@ -13,12 +14,29 @@ interface IColors {
 }
 
 type AddListProps = {
-    colors: IColors[]
+    colors: IColors[],
+    onAdd: (list: list) => void
 }
 
-const AddList: React.FC<AddListProps> = ({ colors }) => {
+const AddList: React.FC<AddListProps> = ({ colors, onAdd }) => {
     const [visiblePopup, setVisiblePopup] = React.useState<boolean>(false)
     const [selectdColor, setSelectdColor] = React.useState<number>(colors[0].id)
+    const [inputValue, setInputValue] = React.useState<string>('')
+
+    const onClose = () => {
+        setInputValue('')
+        setVisiblePopup(false)
+        setSelectdColor(colors[0].id)
+    }
+
+    const addList = () => {
+        if (!inputValue || !selectdColor) {
+            alert('Введите название списка')
+            return;
+        }
+        onAdd({ id: Date.now(), name: inputValue, color: colors.filter(v => v.id === selectdColor)[0].name })
+        onClose()
+    }
 
     return (
         <div className="add-list">
@@ -26,7 +44,7 @@ const AddList: React.FC<AddListProps> = ({ colors }) => {
                 onClick={() => setVisiblePopup(true)}
                 items={[
                     {
-                        label: 'Добавить список',
+                        name: 'Добавить список',
                         icon: addSvg,
                         className: 'list__add-btn'
                     }
@@ -37,9 +55,16 @@ const AddList: React.FC<AddListProps> = ({ colors }) => {
                         src={closeSvg}
                         alt="close"
                         className="add-list__popup-close-btn"
-                        onClick={() => setVisiblePopup(false)}
+                        onClick={onClose}
                     />
-                    <input type="text" placeholder="Название списка" className="field" />
+
+                    <input
+                        type="text"
+                        value={inputValue}
+                        onChange={e => setInputValue(e.target.value)}
+                        placeholder="Название списка"
+                        className="field" />
+
                     <div className="add-list__popup-colors">
 
                         {
@@ -54,7 +79,7 @@ const AddList: React.FC<AddListProps> = ({ colors }) => {
                         }
 
                     </div>
-                    <button onClick={() => setVisiblePopup(false)} className="btn">Добавить</button>
+                    <button onClick={addList} className="btn">Добавить</button>
                 </div>
             }
 

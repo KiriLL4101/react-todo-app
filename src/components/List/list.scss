@@ -1,4 +1,6 @@
 .list {
+  $self: &;
+
   margin-bottom: 35px;
   font-size: 14px;
 
@@ -29,16 +31,21 @@
       }
     }
 
-    &:hover{
-      .list__remove-btn{
+    &:hover {
+      background: rgba(255, 255, 255, 0.5);
+      #{$self}__remove-btn {
         display: inline-block;
-        opacity: 0.4;
+        opacity: 0.2;
+
+        &:hover {
+          opacity: 0.8;
+        }
       }
     }
   }
 
   &__remove-btn {
-    display: none;
+    opacity: 0;
     margin-left: auto;
   }
 }

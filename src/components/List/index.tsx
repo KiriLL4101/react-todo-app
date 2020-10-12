@@ -6,20 +6,22 @@ import './List.scss'
 import removeSvg from '../../assets/img/remove.svg'
 
 interface Item {
+    id?: number,
     icon?: string,
-    label: string,
+    name: string,
     color?: string,
     active?: boolean,
     className?: string
 }
 
-interface ItemList {
+interface ItemListProps {
     items: Item[],
     onClick?: () => void,
-    isRemoveble?: boolean
+    isRemoveble?: boolean,
+    onRemove?: (listsId: number) => void
 }
 
-const List: React.FC<ItemList> = ({ items, onClick, isRemoveble }) => {
+const List: React.FC<ItemListProps> = ({ items, onClick, isRemoveble, onRemove }) => {
     return (
         <ul onClick={onClick} className="list">
             {
@@ -34,10 +36,13 @@ const List: React.FC<ItemList> = ({ items, onClick, isRemoveble }) => {
                             item.color && <Badge color={item.color} />
                         }
                         <span>
-                            {item.label}
+                            {item.name}
                         </span>
                         {
-                            isRemoveble && <img src={removeSvg} alt="remove btn" className="list__remove-btn"/>
+                            isRemoveble && <img src={removeSvg}
+                                alt="remove btn"
+                                className="list__remove-btn"
+                            />
                         }
                     </li>
                 ))
