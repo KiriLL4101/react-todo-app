@@ -11,6 +11,7 @@
     "@types/node": "^12.12.62",
     "@types/react": "^16.9.50",
     "@types/react-dom": "^16.9.8",
+    "axios": "^0.20.0",
     "classnames": "^2.2.6",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -22,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "fake-json": "json-server src/assets/db.json --watch --port 3001"
   },
   "eslintConfig": {
     "extends": "react-app"

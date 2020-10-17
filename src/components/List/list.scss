@@ -17,6 +17,8 @@
     padding: 10px 12px;
     cursor: pointer;
 
+    transition: background-color 0.15s ease-in-out;
+
     &.active {
       background: #ffffff;
       box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
@@ -36,6 +38,8 @@
       #{$self}__remove-btn {
         display: inline-block;
         opacity: 0.2;
+
+        transition: opacity 0.2s ease-in-out;
 
         &:hover {
           opacity: 0.8;

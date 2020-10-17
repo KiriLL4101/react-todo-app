@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios';
 import List from '../List'
 import { list } from '../../App'
 
@@ -20,8 +21,15 @@ type AddListProps = {
 
 const AddList: React.FC<AddListProps> = ({ colors, onAdd }) => {
     const [visiblePopup, setVisiblePopup] = React.useState<boolean>(false)
-    const [selectdColor, setSelectdColor] = React.useState<number>(colors[0].id)
+    const [selectdColor, setSelectdColor] = React.useState<number>(3)
+    const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const [inputValue, setInputValue] = React.useState<string>('')
+
+    React.useEffect(() => {
+        if (colors.length > 1) {
+            setSelectdColor(colors[0].id)
+        }
+    }, [colors])
 
     const onClose = () => {
         setInputValue('')
@@ -34,8 +42,18 @@ const AddList: React.FC<AddListProps> = ({ colors, onAdd }) => {
             alert('Введите название списка')
             return;
         }
-        onAdd({ id: Date.now(), name: inputValue, color: colors.filter(v => v.id === selectdColor)[0].name })
-        onClose()
+        setIsLoading(true)
+        axios.post('http://localhost:3001/lists', {
+            name: inputValue,
+            colorId: selectdColor
+        }).then(({ data }) => {
+            const color = colors.filter(v => v.id === selectdColor)[0].name
+            onAdd({
+                ...data,
+                color: { name: color }
+            })
+            onClose()
+        }).finally(() => setIsLoading(false))
     }
 
     return (
@@ -79,7 +97,9 @@ const AddList: React.FC<AddListProps> = ({ colors, onAdd }) => {
                         }
 
                     </div>
-                    <button onClick={addList} className="btn">Добавить</button>
+                    <button onClick={addList} className="btn">
+                        {isLoading ? 'Добавление...' : 'Добавить'}
+                    </button>
                 </div>
             }
 

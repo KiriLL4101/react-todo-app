@@ -1,0 +1,91 @@
+.tasks {
+  &__title {
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 32px;
+    color: #64c4ed;
+    padding-bottom: 20px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f2f2f2;
+
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      .edit {
+        opacity: 0.2;
+      }
+    }
+  }
+
+  .edit {
+    margin-left: 15px;
+    opacity: 0;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__items {
+    &-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+
+      input {
+        width: 100%;
+        border: 0;
+        outline: none;
+        margin-left: 15px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .checkbox {
+    input {
+      display: none;
+    }
+
+    svg {
+      transition: opacity 0.15s ease-in-out;
+      path {
+        stroke: #fff;
+      }
+    }
+
+    label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #e8e8e8;
+      border-radius: 50%;
+      cursor: pointer;
+
+      transition: background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out;
+    }
+
+    input:checked + label {
+      svg {
+        opacity: 1;
+      }
+      background: #4dd599;
+      border-color: #4dd599;
+    }
+
+    input:not(:checked):hover + label {
+      svg {
+        path {
+          stroke: #b2b2b2;
+        }
+      }
+      background: #f2f2f2;
+      border-color: #f2f2f2;
+    }
+  }
+}

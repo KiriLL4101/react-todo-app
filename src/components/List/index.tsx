@@ -1,5 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
+import axios from 'axios'
 import Badge from '../Badge'
 
 import './List.scss'
@@ -9,7 +10,11 @@ interface Item {
     id?: number,
     icon?: string,
     name: string,
-    color?: string,
+    color?: {
+        id: number,
+        hex: string,
+        name: string
+    },
     active?: boolean,
     className?: string
 }
@@ -18,10 +23,22 @@ interface ItemListProps {
     items: Item[],
     onClick?: () => void,
     isRemoveble?: boolean,
-    onRemove?: (listsId: number) => void
+    onRemove?: (id: number) => void
 }
 
 const List: React.FC<ItemListProps> = ({ items, onClick, isRemoveble, onRemove }) => {
+
+    const removeList = (item: Item) => {
+        if (window.confirm('Выдействительно хотите удалить ?')) {
+            axios.delete('http://localhost:3001/lists/' + item.id).then(() => {
+                if (onRemove) {
+                    onRemove(item.id as number)
+                }
+            })
+
+        }
+    }
+
     return (
         <ul onClick={onClick} className="list">
             {
@@ -33,16 +50,17 @@ const List: React.FC<ItemListProps> = ({ items, onClick, isRemoveble, onRemove }
                             </i>
                         }
                         {
-                            item.color && <Badge color={item.color} />
+                            item.color && <Badge color={item.color.name} />
                         }
                         <span>
                             {item.name}
                         </span>
                         {
-                            isRemoveble && <img src={removeSvg}
+                            isRemoveble ? <img src={removeSvg}
                                 alt="remove btn"
                                 className="list__remove-btn"
-                            />
+                                onClick={() => removeList(item)}
+                            /> : null
                         }
                     </li>
                 ))

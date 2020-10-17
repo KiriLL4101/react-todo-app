@@ -16,7 +16,7 @@ body {
   display: flex;
   margin: 65px auto;
   width: 746px;
-  height: 529px;
+  min-height: 529px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 10px 10px 10px #eaeaea;
@@ -42,10 +42,10 @@ body {
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-  &:hover{
+  &:hover {
     background: darken(#4dd599, 5%);
   }
-  &:active{
+  &:active {
     background: darken(#4dd599, 10%);
   }
 }
