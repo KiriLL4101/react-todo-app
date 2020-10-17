@@ -10,6 +10,13 @@ export interface colors {
   hex: string,
   name: string
 }
+
+export interface ITask {
+  complited: boolean,
+  id: number,
+  text: string,
+  listId: number
+}
 export interface list {
   id: number,
   name: string,
@@ -20,6 +27,7 @@ export interface list {
 function App() {
   const [lists, setLists] = React.useState<list[]>([])
   const [colors, setColors] = React.useState<colors[]>([])
+  const [activeItem, setActiveItem] = React.useState<list>(null!)
 
   React.useEffect(() => {
     axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({ data }) => setLists(data))
@@ -30,26 +38,44 @@ function App() {
     setLists(prev => [...prev, list])
   }
 
+  const onEditListTitle = (id: number, title: string) => {
+    setLists(
+      lists.map(v => {
+        if (v.id === id) {
+          v.name = title
+        }
+        return v
+      })
+    )
+  }
+
   return (
     <div className="todo">
       <section className="todo__sidebar">
         <List items={[
           {
             icon: listSvg,
-            name: 'Все задачи',
-            active: false
+            name: 'Все задачи'
           }
         ]} />
-        <List items={lists}
-          onRemove={(id: number) => {
-            setLists(lists.filter(v => v.id !== id))
-          }}
-          isRemoveble
-        />
+        {
+          lists ? (
+            <List items={lists}
+              onRemove={(id: number) => {
+                setLists(lists.filter(v => v.id !== id))
+              }}
+              onClickItem={(item: any) => {
+                setActiveItem(item)
+              }}
+              activeItem={activeItem}
+              isRemoveble
+            />
+          ) : 'Загрузка...'
+        }
         <AddList onAdd={onAddList} colors={colors} />
       </section>
       <main className="todo__tasks">
-        {!!lists.length && <Tasks task={lists[1]} />}
+        {activeItem && <Tasks list={activeItem} onEditTitle={onEditListTitle} />}
       </main>
     </div>
   );

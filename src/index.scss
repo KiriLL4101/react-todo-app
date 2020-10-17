@@ -22,7 +22,7 @@ body {
   box-shadow: 10px 10px 10px #eaeaea;
 
   &__sidebar {
-    width: 220px;
+    width: 230px;
     background: #f4f6f8;
     border-right: 1px solid #f1f1f1;
     padding: 58px 20px;
@@ -42,11 +42,25 @@ body {
   border: none;
   padding: 10px 20px;
   cursor: pointer;
+  font-size: 14px;
+
   &:hover {
     background: darken(#4dd599, 5%);
   }
   &:active {
     background: darken(#4dd599, 10%);
+  }
+
+  &--grey {
+    background: #f4f6f8;
+    color: #9c9c9c;
+
+    &:hover {
+      background: darken(#f4f6f8, 5%);
+    }
+    &:active {
+      background: darken(#f4f6f8, 10%);
+    }
   }
 }
 
@@ -57,6 +71,8 @@ body {
   border-radius: 4px;
   padding: 8px 12px;
   width: 100%;
+  font-size: 14px;
+
   &:focus {
     border-color: #dbdbdb;
   }

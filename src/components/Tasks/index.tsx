@@ -1,7 +1,10 @@
 import React from 'react'
+import axios from 'axios'
+import { AddTaskForm } from './AddTaskForm'
 
 import './Tasks.scss'
 import editSvg from '../../assets/img/edit.svg'
+
 
 interface Task {
     complited?: boolean,
@@ -17,28 +20,40 @@ interface Tasks {
         name: string
     },
     colorId?: number
-    id?: number
+    id: number
     name?: string,
     tasks?: Task[]
 }
 
 interface TaskProps {
-    task: Tasks
+    list: Tasks,
+    onEditTitle: (id: number, title: string) => void
 }
 
-const Tasks: React.FC<TaskProps> = ({ task }) => {
-    console.log(task)
+const Tasks: React.FC<TaskProps> = ({ list, onEditTitle }) => {
+
+    const editTitle = () => {
+        const newTitle = window.prompt("Введите название списка", list.name)
+        if (newTitle) {
+            onEditTitle(list.id, newTitle);
+            axios.patch('http://localhost:3001/lists/' + list.id, {
+                name: newTitle
+            }).catch(() => {
+                alert('Не удалось обновить название списка')
+            })
+        }
+    }
 
     return (
         <div className="tasks">
-            <h2 className="tasks__title">
-                {task.name}
-                <img src={editSvg} alt="edit" className="edit" />
-            </h2>
+            <h1 className="tasks__title">
+                {list.name}
+                <img onClick={editTitle} src={editSvg} alt="edit" className="edit" />
+            </h1>
 
             <div className="tasks__items">
                 {
-                    task.tasks && task.tasks.map(item => (
+                    (list.tasks && list.tasks.length > 0) ? list.tasks.map(item => (
                         <div key={item.id} className="tasks__items-row">
                             <div className="checkbox">
                                 <input type="checkbox" id={`task-${item.id}`} />
@@ -62,9 +77,10 @@ const Tasks: React.FC<TaskProps> = ({ task }) => {
                             </div>
                             <input readOnly value={item.text} />
                         </div>
-                    ))
+                    )) : <h2>Задачи отсутствуют</h2>
                 }
             </div>
+            <AddTaskForm />
         </div>
     )
 }

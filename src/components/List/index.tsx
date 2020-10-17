@@ -23,10 +23,19 @@ interface ItemListProps {
     items: Item[],
     onClick?: () => void,
     isRemoveble?: boolean,
-    onRemove?: (id: number) => void
+    onRemove?: (id: number) => void,
+    onClickItem?: (item: any) => void,
+    activeItem?: Item
 }
 
-const List: React.FC<ItemListProps> = ({ items, onClick, isRemoveble, onRemove }) => {
+const List: React.FC<ItemListProps> = ({
+    items,
+    onClick,
+    isRemoveble,
+    onRemove,
+    onClickItem,
+    activeItem
+}) => {
 
     const removeList = (item: Item) => {
         if (window.confirm('Выдействительно хотите удалить ?')) {
@@ -43,7 +52,9 @@ const List: React.FC<ItemListProps> = ({ items, onClick, isRemoveble, onRemove }
         <ul onClick={onClick} className="list">
             {
                 items.map((item: Item, idx: number) => (
-                    <li key={idx} className={classNames(item.className, { 'active': item.active })}>
+                    <li key={idx}
+                        className={classNames(item.className, { active: activeItem && activeItem.id === item.id })}
+                        onClick={onClickItem ? (e) => onClickItem(item) : () => { }}>
                         {
                             item.icon && <i>
                                 <img src={item.icon} alt="list icon" />

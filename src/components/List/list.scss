@@ -25,6 +25,13 @@
       border-radius: 4px;
     }
 
+    span {
+      width: 130px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
     i {
       display: inline-flex;
       margin-right: 10px;
