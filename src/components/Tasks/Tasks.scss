@@ -1,4 +1,8 @@
 .tasks {
+  &:not(:last-of-type) {
+    margin-bottom: 40px;
+  }
+
   &__title {
     font-family: Montserrat;
     font-weight: bold;
@@ -57,22 +61,58 @@
     &-block {
       .btn {
         margin-right: 10px;
+        margin-top: 15px;
       }
     }
   }
 
   &__items {
+    position: relative;
     &-row {
       display: flex;
       align-items: center;
       margin-bottom: 15px;
 
-      input {
-        width: 100%;
-        border: 0;
-        outline: none;
+      &:hover &-actions {
+        opacity: 1;
+      }
+
+      &-actions {
+        display: flex;
+        opacity: 0;
+        transition: opacity 0.15s ease-in-out;
+
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          background-color: lighten(#f4f6f8, 2%);
+          border-radius: 6px;
+          margin-left: 5px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: darken(#f4f6f8, 2%);
+            svg {
+              opacity: 0.9;
+            }
+          }
+
+          svg {
+            width: 11px;
+            height: 11px;
+            opacity: 0.4;
+          }
+        }
+      }
+
+      p {
         margin-left: 15px;
+        border: 0;
         font-size: 16px;
+        width: 100%;
       }
     }
   }
@@ -123,10 +163,12 @@
   }
 
   h2 {
+    position: absolute;
+    top: 120px;
+    right: 95px;
     font-size: 23px;
     font-weight: bold;
     color: #c9d1d3;
     text-align: center;
-    margin-top: 100px;
   }
 }

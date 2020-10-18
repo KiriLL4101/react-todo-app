@@ -4,9 +4,10 @@ import { AddTaskForm } from './AddTaskForm'
 
 import './Tasks.scss'
 import editSvg from '../../assets/img/edit.svg'
+import { Task } from './Task'
 
 
-interface Task {
+export interface ITask {
     complited?: boolean,
     id?: number,
     text?: string,
@@ -22,15 +23,17 @@ interface Tasks {
     colorId?: number
     id: number
     name?: string,
-    tasks?: Task[]
+    tasks?: ITask[]
 }
 
 interface TaskProps {
     list: Tasks,
-    onEditTitle: (id: number, title: string) => void
+    onEditTitle: (id: number, title: string) => void,
+    onAddTask: (listId: number, task: any) => void,
+    withoutEmpty?: boolean
 }
 
-const Tasks: React.FC<TaskProps> = ({ list, onEditTitle }) => {
+const Tasks: React.FC<TaskProps> = ({ list, onEditTitle, onAddTask, withoutEmpty }) => {
 
     const editTitle = () => {
         const newTitle = window.prompt("Введите название списка", list.name)
@@ -46,41 +49,20 @@ const Tasks: React.FC<TaskProps> = ({ list, onEditTitle }) => {
 
     return (
         <div className="tasks">
-            <h1 className="tasks__title">
+            <h1 style={{ color: list.color?.hex }} className="tasks__title">
                 {list.name}
                 <img onClick={editTitle} src={editSvg} alt="edit" className="edit" />
             </h1>
 
             <div className="tasks__items">
+                {!withoutEmpty && !list.tasks!.length && <h2>Задачи отсутствуют</h2>}
                 {
-                    (list.tasks && list.tasks.length > 0) ? list.tasks.map(item => (
-                        <div key={item.id} className="tasks__items-row">
-                            <div className="checkbox">
-                                <input type="checkbox" id={`task-${item.id}`} />
-                                <label htmlFor={`task-${item.id}`}>
-                                    <svg
-                                        width="11"
-                                        height="8"
-                                        viewBox="0 0 11 8"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M9.29999 1.20001L3.79999 6.70001L1.29999 4.20001"
-                                            stroke="#fff"
-                                            strokeWidth="1.5"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
-                                </label>
-                            </div>
-                            <input readOnly value={item.text} />
-                        </div>
-                    )) : <h2>Задачи отсутствуют</h2>
+                    list.tasks!.map(task => (
+                        <Task key={task.id} {...task} />
+                    ))
                 }
+                <AddTaskForm list={list} onAddTask={onAddTask} />
             </div>
-            <AddTaskForm />
         </div>
     )
 }

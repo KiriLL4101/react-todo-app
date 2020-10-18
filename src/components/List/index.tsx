@@ -53,7 +53,9 @@ const List: React.FC<ItemListProps> = ({
             {
                 items.map((item: Item, idx: number) => (
                     <li key={idx}
-                        className={classNames(item.className, { active: activeItem && activeItem.id === item.id })}
+                        className={classNames(item.className, {
+                            active: item.active ? item.active : activeItem && activeItem.id === item.id
+                        })}
                         onClick={onClickItem ? (e) => onClickItem(item) : () => { }}>
                         {
                             item.icon && <i>

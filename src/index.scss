@@ -15,8 +15,8 @@ body {
 .todo {
   display: flex;
   margin: 65px auto;
-  width: 746px;
-  min-height: 529px;
+  width: calc(100vw - 600px);
+  height: calc(100vh - 100px);
   background: #fff;
   border-radius: 10px;
   box-shadow: 10px 10px 10px #eaeaea;
@@ -61,6 +61,10 @@ body {
     &:active {
       background: darken(#f4f6f8, 10%);
     }
+  }
+
+  &:disabled {
+    background: #d8d8d8;
   }
 }
 
