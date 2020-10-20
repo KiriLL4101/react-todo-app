@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import List from '../List'
-import { list } from '../../App'
+import { IList } from '../../App'
 
 import addSvg from '../../assets/img/add.svg'
 import closeSvg from '../../assets/img/close.svg'
@@ -16,7 +16,7 @@ interface IColors {
 
 type AddListProps = {
     colors: IColors[],
-    onAdd: (list: list) => void
+    onAdd: (list: IList) => void
 }
 
 const AddList: React.FC<AddListProps> = ({ colors, onAdd }) => {

@@ -1,22 +1,23 @@
 import React from 'react'
-import { ITask } from './index'
+
+import { IList, ITask } from '../../App'
 
 interface PropsTask extends ITask {
-    onRemove: () => void,
-    onEdit: () => void,
-    onComplete: () => void,
-    list: any
+    list: IList,
+    onCompleteTask: (listId: number, taskId: number, completed: boolean) => void,
+    onRemoveTask: (listId: number, taskId: number) => void,
+    onEditTask: (listId: number, task: { id: number, text: string }) => void
 }
 
-export const Task: React.FC<ITask> = ({ id, text, complited }) => {
-    // const onChangeCheckbox = e => {
-    //     onComplete(list.id, id, e.target.checked);
-    // };
+export const Task: React.FC<PropsTask> = ({ id, text, completed, list, onCompleteTask, onRemoveTask, onEditTask }) => {
+    const onChangeCheckbox = (e: any) => {
+        onCompleteTask(list.id, id, e.target.checked);
+    };
 
     return (
         <div key={id} className="tasks__items-row">
             <div className="checkbox">
-                <input type="checkbox" id={`task-${id}`} checked={complited} />
+                <input type="checkbox" id={`task-${id}`} checked={completed} onChange={onChangeCheckbox} />
                 <label htmlFor={`task-${id}`}>
                     <svg
                         width="11"
@@ -37,7 +38,7 @@ export const Task: React.FC<ITask> = ({ id, text, complited }) => {
             </div>
             <p>{text}</p>
             <div className="tasks__items-row-actions">
-                <div >
+                <div onClick={() => onEditTask(list.id, { id, text })}>
                     <svg
                         width="15"
                         height="15"
@@ -51,7 +52,7 @@ export const Task: React.FC<ITask> = ({ id, text, complited }) => {
                         />
                     </svg>
                 </div>
-                <div>
+                <div onClick={() => onRemoveTask(list.id, id)}>
                     <svg
                         width="11"
                         height="11"

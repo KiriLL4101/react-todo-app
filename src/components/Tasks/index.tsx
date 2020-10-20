@@ -1,39 +1,24 @@
 import React from 'react'
 import axios from 'axios'
 import { AddTaskForm } from './AddTaskForm'
+import { Task } from './Task'
 
 import './Tasks.scss'
 import editSvg from '../../assets/img/edit.svg'
-import { Task } from './Task'
+import { IList } from '../../App'
 
-
-export interface ITask {
-    complited?: boolean,
-    id?: number,
-    text?: string,
-    listId?: number
-}
-
-interface Tasks {
-    color?: {
-        hex: string,
-        id: number
-        name: string
-    },
-    colorId?: number
-    id: number
-    name?: string,
-    tasks?: ITask[]
-}
 
 interface TaskProps {
-    list: Tasks,
+    list: IList,
     onEditTitle: (id: number, title: string) => void,
     onAddTask: (listId: number, task: any) => void,
+    onCompleteTask: (listId: number, taskId: number, completed: boolean) => void,
+    onRemoveTask: (listId: number, taskId: number) => void,
+    onEditTask: (listId: number, task: { id: number, text: string }) => void,
     withoutEmpty?: boolean
 }
 
-const Tasks: React.FC<TaskProps> = ({ list, onEditTitle, onAddTask, withoutEmpty }) => {
+const Tasks: React.FC<TaskProps> = ({ list, onEditTitle, onAddTask, withoutEmpty, onCompleteTask, onRemoveTask, onEditTask }) => {
 
     const editTitle = () => {
         const newTitle = window.prompt("Введите название списка", list.name)
@@ -58,7 +43,13 @@ const Tasks: React.FC<TaskProps> = ({ list, onEditTitle, onAddTask, withoutEmpty
                 {!withoutEmpty && !list.tasks!.length && <h2>Задачи отсутствуют</h2>}
                 {
                     list.tasks!.map(task => (
-                        <Task key={task.id} {...task} />
+                        <Task
+                            key={task.id}
+                            list={list}
+                            {...task}
+                            onRemoveTask={onRemoveTask}
+                            onCompleteTask={onCompleteTask}
+                            onEditTask={onEditTask} />
                     ))
                 }
                 <AddTaskForm list={list} onAddTask={onAddTask} />
