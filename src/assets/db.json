@@ -16,14 +16,9 @@
       "colorId": 3
     },
     {
+      "id": 7,
       "name": "ReactJS ToDo",
-      "colorId": 7,
-      "id": 7
-    },
-    {
-      "name": "backend",
-      "colorId": 8,
-      "id": 8
+      "colorId": 7
     }
   ],
   "tasks": [

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Route, useHistory } from 'react-router-dom'
+import { Route, useHistory, useLocation } from 'react-router-dom'
 
 import { List, AddList, Tasks } from './components'
 
@@ -31,21 +31,20 @@ function App() {
   const [colors, setColors] = React.useState<IColors[]>([])
   const [activeItem, setActiveItem] = React.useState<IList>(null!)
   let history = useHistory();
+  let location = useLocation();
 
   React.useEffect(() => {
     axios.get('/lists?_expand=color&_embed=tasks').then(({ data }) => setLists(data))
     axios.get('/colors').then(({ data }) => setColors(data))
   }, [])
 
-  // TODO
-  // React.useEffect(() => {
-  //   const listId = history.location.pathname.split('lists/')[1];
-  //   if (lists) {
-  //     const list = lists.find(list => list.id === Number(listId));
-  //     console.log(list)
-  //     setActiveItem(list!);
-  //   }
-  // }, [lists, history.location.pathname]);
+  React.useEffect(() => {
+    const listId = history.location.pathname.split('lists/')[1];
+    if (lists) {
+      const list = lists.find(list => list.id === Number(listId));
+      setActiveItem(list!);
+    }
+  }, [lists, history.location.pathname]);
 
   const onAddList = (list: IList) => {
     setLists(prev => [...prev, list])
@@ -158,7 +157,6 @@ function App() {
               }}
               onClickItem={(item: any) => {
                 history.push(`/lists/${item.id}`)
-                setActiveItem(item)
               }}
               activeItem={activeItem}
               isRemoveble

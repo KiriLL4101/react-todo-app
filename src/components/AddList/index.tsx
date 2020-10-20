@@ -1,18 +1,13 @@
 import React from 'react'
 import axios from 'axios';
 import List from '../List'
-import { IList } from '../../App'
+import { IList, IColors } from '../../App'
 
 import addSvg from '../../assets/img/add.svg'
 import closeSvg from '../../assets/img/close.svg'
 import './AddButtonList.scss'
 import Badge from '../Badge'
 
-interface IColors {
-    id: number;
-    hex: string;
-    name: string;
-}
 
 type AddListProps = {
     colors: IColors[],
