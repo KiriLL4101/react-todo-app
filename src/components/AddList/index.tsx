@@ -43,7 +43,7 @@ const AddList: React.FC<AddListProps> = ({ colors, onAdd }) => {
             return;
         }
         setIsLoading(true)
-        axios.post('http://localhost:3001/lists', {
+        axios.post('/lists', {
             name: inputValue,
             colorId: selectdColor
         }).then(({ data }) => {
