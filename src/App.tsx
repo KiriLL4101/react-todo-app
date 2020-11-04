@@ -34,8 +34,8 @@ function App() {
   let location = useLocation();
 
   React.useEffect(() => {
-    axios.get('/lists?_expand=color&_embed=tasks').then(({ data }) => setLists(data))
-    axios.get('/colors').then(({ data }) => setColors(data))
+    axios.get('https://todo-react-app-test.herokuapp.com/lists?_expand=color&_embed=tasks').then(({ data }) => setLists(data))
+    axios.get('https://todo-react-app-test.herokuapp.com/colors').then(({ data }) => setColors(data))
   }, [])
 
   React.useEffect(() => {
@@ -85,7 +85,7 @@ function App() {
     });
     setLists(newList);
     axios
-      .patch('/tasks/' + taskId, {
+      .patch('https://todo-react-app-test.herokuapp.com/tasks/' + taskId, {
         completed
       })
       .catch(() => {
@@ -113,7 +113,7 @@ function App() {
     });
     setLists(newList);
     axios
-      .patch('/tasks/' + taskObj.id, {
+      .patch('https://todo-react-app-test.herokuapp.com/tasks/' + taskObj.id, {
         text: newTaskText
       })
       .catch(() => {
@@ -130,7 +130,7 @@ function App() {
         return list;
       });
       setLists(newList);
-      axios.delete('/tasks/' + taskId).catch(() => {
+      axios.delete('https://todo-react-app-test.herokuapp.com/tasks/' + taskId).catch(() => {
         alert('Не удалось удалить задачу');
       });
     }

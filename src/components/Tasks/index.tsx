@@ -24,7 +24,7 @@ const Tasks: React.FC<TaskProps> = ({ list, onEditTitle, onAddTask, withoutEmpty
         const newTitle = window.prompt("Введите название списка", list.name)
         if (newTitle) {
             onEditTitle(list.id, newTitle);
-            axios.patch('/lists/' + list.id, {
+            axios.patch('https://todo-react-app-test.herokuapp.com/lists/' + list.id, {
                 name: newTitle
             }).catch(() => {
                 alert('Не удалось обновить название списка')
