@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Route, useHistory, useLocation } from 'react-router-dom'
+import { Route, useHistory, useLocation, Switch } from 'react-router-dom'
 
 import { List, AddList, Tasks } from './components'
 
@@ -166,31 +166,33 @@ function App() {
         <AddList onAdd={onAddList} colors={colors} />
       </section>
       <main className="todo__tasks">
-        <Route exact path="/">
-          {
-            lists && lists.map(list => (
-              <Tasks key={list.id}
-                list={list}
+        <Switch>
+          <Route exact path="/">
+            {
+              lists && lists.map(list => (
+                <Tasks key={list.id}
+                  list={list}
+                  onAddTask={onAddTask}
+                  onEditTitle={onEditListTitle}
+                  onRemoveTask={onRemoveTask}
+                  onCompleteTask={onCompleteTask}
+                  onEditTask={onEditTask}
+                  withoutEmpty
+                />
+              ))
+            }
+          </Route>
+          <Route path="/lists/:id">
+            {lists && activeItem && (
+              <Tasks list={activeItem}
                 onAddTask={onAddTask}
                 onEditTitle={onEditListTitle}
                 onRemoveTask={onRemoveTask}
                 onCompleteTask={onCompleteTask}
-                onEditTask={onEditTask}
-                withoutEmpty
-              />
-            ))
-          }
-        </Route>
-        <Route path="/lists/:id">
-          {lists && activeItem && (
-            <Tasks list={activeItem}
-              onAddTask={onAddTask}
-              onEditTitle={onEditListTitle}
-              onRemoveTask={onRemoveTask}
-              onCompleteTask={onCompleteTask}
-              onEditTask={onEditTask} />)
-          }
-        </Route>
+                onEditTask={onEditTask} />)
+            }
+          </Route>
+        </Switch>
       </main>
     </div>
   );
