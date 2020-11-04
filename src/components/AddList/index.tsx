@@ -42,10 +42,10 @@ const AddList: React.FC<AddListProps> = ({ colors, onAdd }) => {
             name: inputValue,
             colorId: selectdColor
         }).then(({ data }) => {
-            const color = colors.filter(v => v.id === selectdColor)[0].name
+            const color = colors.filter(v => v.id === selectdColor)[0]
             onAdd({
                 ...data,
-                color: { name: color }
+                color
             })
             onClose()
         }).finally(() => setIsLoading(false))

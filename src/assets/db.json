@@ -19,6 +19,11 @@
       "id": 7,
       "name": "ReactJS ToDo",
       "colorId": 7
+    },
+    {
+      "name": "list",
+      "colorId": 4,
+      "id": 8
     }
   ],
   "tasks": [
@@ -100,6 +105,12 @@
       "text": "Complited",
       "complited": false,
       "id": 20
+    },
+    {
+      "listId": 8,
+      "text": "321",
+      "complited": false,
+      "id": 21
     }
   ],
   "colors": [

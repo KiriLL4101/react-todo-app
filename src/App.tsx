@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Route, useHistory, useLocation, Switch } from 'react-router-dom'
+import { Route, useHistory, useLocation } from 'react-router-dom'
 
 import { List, AddList, Tasks } from './components'
 
@@ -30,6 +30,7 @@ function App() {
   const [lists, setLists] = React.useState<IList[]>([])
   const [colors, setColors] = React.useState<IColors[]>([])
   const [activeItem, setActiveItem] = React.useState<IList>(null!)
+  
   let history = useHistory();
   let location = useLocation();
 
