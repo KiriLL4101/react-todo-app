@@ -48,7 +48,7 @@ export const AddTaskForm: React.FC<PropsForm> = ({ list, onAddTask }) => {
                 onAddTask(list.id, data)
                 toggleForm()
             })
-                // .catch(() => alert("Ошибка при добавлении задачи"))
+                .catch(() => alert("Ошибка при добавлении задачи"))
                 .finally(() => setIsLoading(false))
         }
     }
