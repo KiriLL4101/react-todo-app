@@ -166,33 +166,33 @@ function App() {
         <AddList onAdd={onAddList} colors={colors} />
       </section>
       <main className="todo__tasks">
-        <Switch>
-          <Route exact path="/" history={history}>
-            {
-              lists && lists.map(list => (
-                <Tasks key={list.id}
-                  list={list}
-                  onAddTask={onAddTask}
-                  onEditTitle={onEditListTitle}
-                  onRemoveTask={onRemoveTask}
-                  onCompleteTask={onCompleteTask}
-                  onEditTask={onEditTask}
-                  withoutEmpty
-                />
-              ))
-            }
-          </Route>
-          <Route path="/lists/:id" history={history}>
-            {lists && activeItem && (
-              <Tasks list={activeItem}
+
+        <Route exact path="/" history={history}>
+          {
+            lists && lists.map(list => (
+              <Tasks key={list.id}
+                list={list}
                 onAddTask={onAddTask}
                 onEditTitle={onEditListTitle}
                 onRemoveTask={onRemoveTask}
                 onCompleteTask={onCompleteTask}
-                onEditTask={onEditTask} />)
-            }
-          </Route>
-        </Switch>
+                onEditTask={onEditTask}
+                withoutEmpty
+              />
+            ))
+          }
+        </Route>
+        <Route path="/lists/:id" history={history}>
+          {lists && activeItem && (
+            <Tasks list={activeItem}
+              onAddTask={onAddTask}
+              onEditTitle={onEditListTitle}
+              onRemoveTask={onRemoveTask}
+              onCompleteTask={onCompleteTask}
+              onEditTask={onEditTask} />)
+          }
+        </Route>
+
       </main>
     </div>
   );

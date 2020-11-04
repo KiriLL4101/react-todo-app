@@ -40,9 +40,9 @@ const Tasks: React.FC<TaskProps> = ({ list, onEditTitle, onAddTask, withoutEmpty
             </h1>
 
             <div className="tasks__items">
-                {!withoutEmpty && !list.tasks!.length && <h2>Задачи отсутствуют</h2>}
+                {!withoutEmpty && list.tasks && !list.tasks.length && <h2>Задачи отсутствуют</h2>}
                 {
-                    list.tasks!.map(task => (
+                    list.tasks && list.tasks.map(task => (
                         <Task
                             key={task.id}
                             list={list}
