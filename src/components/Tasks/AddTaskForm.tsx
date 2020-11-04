@@ -47,7 +47,8 @@ export const AddTaskForm: React.FC<PropsForm> = ({ list, onAddTask }) => {
             axios.post('/tasks', newTask).then(({ data }) => {
                 onAddTask(list.id, data)
                 toggleForm()
-            }).catch(() => alert("Ошибка при добавлении задачи"))
+            })
+                // .catch(() => alert("Ошибка при добавлении задачи"))
                 .finally(() => setIsLoading(false))
         }
     }

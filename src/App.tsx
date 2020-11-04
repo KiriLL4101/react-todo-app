@@ -30,7 +30,7 @@ function App() {
   const [lists, setLists] = React.useState<IList[]>([])
   const [colors, setColors] = React.useState<IColors[]>([])
   const [activeItem, setActiveItem] = React.useState<IList>(null!)
-  
+
   let history = useHistory();
   let location = useLocation();
 
@@ -51,10 +51,10 @@ function App() {
     setLists(prev => [...prev, list])
   }
 
-  const onAddTask = (listId: number, task: any) => {
+  const onAddTask = (listId: number, task: ITask) => {
     const newList = lists.map(item => {
       if (item.id === listId) {
-        item.tasks = [...item.tasks!, task]
+        item.tasks = [...item.tasks = [], task]
       }
       return item
     })
