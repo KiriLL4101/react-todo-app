@@ -39,7 +39,7 @@ const List: React.FC<ItemListProps> = ({
 
     const removeList = (item: Item) => {
         if (window.confirm('Выдействительно хотите удалить ?')) {
-            axios.delete('https://todo-react-app-test.herokuapp.com/lists/' + item.id).then(() => {
+            axios.delete('/lists/' + item.id).then(() => {
                 if (onRemove) {
                     onRemove(item.id as number)
                 }

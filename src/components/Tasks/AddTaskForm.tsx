@@ -44,7 +44,7 @@ export const AddTaskForm: React.FC<PropsForm> = ({ list, onAddTask }) => {
                 complited: false
             }
             setIsLoading(true)
-            axios.post('https://todo-react-app-test.herokuapp.com/tasks', newTask).then(({ data }) => {
+            axios.post('/tasks', newTask).then(({ data }) => {
                 onAddTask(list.id, data)
                 toggleForm()
             }).catch(() => alert("Ошибка при добавлении задачи"))

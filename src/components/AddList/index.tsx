@@ -38,7 +38,7 @@ const AddList: React.FC<AddListProps> = ({ colors, onAdd }) => {
             return;
         }
         setIsLoading(true)
-        axios.post('https://todo-react-app-test.herokuapp.com/lists', {
+        axios.post('/lists', {
             name: inputValue,
             colorId: selectdColor
         }).then(({ data }) => {

@@ -34,8 +34,8 @@ function App() {
   let location = useLocation();
 
   React.useEffect(() => {
-    axios.get('https://todo-react-app-test.herokuapp.com/lists?_expand=color&_embed=tasks').then(({ data }) => setLists(data))
-    axios.get('https://todo-react-app-test.herokuapp.com/colors').then(({ data }) => setColors(data))
+    axios.get('/lists?_expand=color&_embed=tasks').then(({ data }) => setLists(data))
+    axios.get('/colors').then(({ data }) => setColors(data))
   }, [])
 
   React.useEffect(() => {
@@ -85,7 +85,7 @@ function App() {
     });
     setLists(newList);
     axios
-      .patch('https://todo-react-app-test.herokuapp.com/tasks/' + taskId, {
+      .patch('/tasks/' + taskId, {
         completed
       })
       .catch(() => {
@@ -113,7 +113,7 @@ function App() {
     });
     setLists(newList);
     axios
-      .patch('https://todo-react-app-test.herokuapp.com/tasks/' + taskObj.id, {
+      .patch('/tasks/' + taskObj.id, {
         text: newTaskText
       })
       .catch(() => {
@@ -130,7 +130,7 @@ function App() {
         return list;
       });
       setLists(newList);
-      axios.delete('https://todo-react-app-test.herokuapp.com/tasks/' + taskId).catch(() => {
+      axios.delete('/tasks/' + taskId).catch(() => {
         alert('Не удалось удалить задачу');
       });
     }
@@ -167,7 +167,7 @@ function App() {
       </section>
       <main className="todo__tasks">
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/" history={history}>
             {
               lists && lists.map(list => (
                 <Tasks key={list.id}
@@ -182,7 +182,7 @@ function App() {
               ))
             }
           </Route>
-          <Route path="/lists/:id">
+          <Route path="/lists/:id" history={history}>
             {lists && activeItem && (
               <Tasks list={activeItem}
                 onAddTask={onAddTask}
